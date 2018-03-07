@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.social_network</groupId>
-	<artifactId>social_network</artifactId>
+	<groupId>com.snetwork</groupId>
+	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>social_network</name>
-	<description>Demo project for Spring Boot</description>
+	<name>snetwork</name>
+	<description>Social Network for learning</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -36,6 +36,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+			<version>1.9.21</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

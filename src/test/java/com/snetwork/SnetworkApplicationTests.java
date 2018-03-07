@@ -1,4 +1,4 @@
-package com.social_network.social_network;
+package com.snetwork;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SocialNetworkApplicationTests {
+public class SnetworkApplicationTests {
 
 	@Test
 	public void contextLoads() {
