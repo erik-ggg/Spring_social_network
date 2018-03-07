@@ -32,6 +32,6 @@ public class UserController {
         //user.setRole(rolesService.getRoles()[0]);
         usersService.addUser(user);
         //securityService.autoLogin(user.getDni(), user.getPasswordConfirm());
-        return "redirect:home";
+        return "redirect:/";
     }
 }
