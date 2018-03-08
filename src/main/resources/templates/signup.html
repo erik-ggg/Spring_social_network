@@ -16,8 +16,8 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" name="name"
                 placeholder="Ejemplo: Jose Samuel Obregon Naredo" required="true" />
-                <!--<span class="text-danger" th:if="${#fields.hasErrors('name')}" -->
-                	<!--th:errors="*{name}"/>-->
+                <span class="text-danger" th:if="${#fields.hasErrors('name')}"
+                	th:errors="*{name}"/>
         </div>
     </div>
     <div class="form-group">
@@ -25,8 +25,8 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" name="email"
                    placeholder="Ejemplo: json@gmail.es" required="true" />
-            <!--<span class="text-danger" th:if="${#fields.hasErrors('name')}" -->
-            <!--th:errors="*{name}"/>-->
+            <span class="text-danger" th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}"/>
         </div>
     </div>
     <div class="form-group">
@@ -34,8 +34,8 @@
         <div class="col-sm-10">
             <input type="password" class="form-control" name="password"
                 placeholder="Contraseña" />
-            <!--<span class="text-danger" th:if="${#fields.hasErrors('password')}" -->
-            	<!--th:errors="*{password}"/>-->
+            <span class="text-danger" th:if="${#fields.hasErrors('password')}"
+            	th:errors="*{password}"/>
         </div>
     </div>
     <div class="form-group" >
@@ -44,8 +44,8 @@
         <div class="col-sm-10">
             <input type="password" class="form-control" name="passwordConfirm"
                 placeholder="Repita la contraseña" />
-            <!--<span class="text-danger" th:if="${#fields.hasErrors('passwordConfirm')}" -->
-            	<!--th:errors="*{passwordConfirm}"/>-->
+            <span class="text-danger" th:if="${#fields.hasErrors('passwordConfirm')}"
+            	th:errors="*{passwordConfirm}"/>
         </div>
     </div>
     <div class="form-group">

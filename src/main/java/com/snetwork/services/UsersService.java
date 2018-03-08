@@ -22,4 +22,8 @@ public class UsersService {
     public void addUser(User user) {
         usersRepository.save(user);
     }
+
+    public User getUserByEmail(String email) {
+        return usersRepository.findByEmail(email);
+    }
 }

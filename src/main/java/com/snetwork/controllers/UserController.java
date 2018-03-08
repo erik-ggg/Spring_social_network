@@ -2,6 +2,7 @@ package com.snetwork.controllers;
 
 import com.snetwork.entities.User;
 import com.snetwork.services.UsersService;
+import com.snetwork.validators.SignUpFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,9 @@ public class UserController {
     @Autowired
     private UsersService usersService;
 
+    @Autowired
+    private SignUpFormValidator signUpFormValidator;
+
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model) {
         model.addAttribute("user", new User());
@@ -24,7 +28,7 @@ public class UserController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signup(@ModelAttribute @Validated User user, BindingResult result, Model model) {
-        //signUpFormValidator.validate(user, result);
+        signUpFormValidator.validate(user, result);
         if (result.hasErrors()) {
             return "signup";
         }
