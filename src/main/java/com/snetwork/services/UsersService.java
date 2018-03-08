@@ -23,6 +23,13 @@ public class UsersService {
         return users;
     }
 
+    public List<User> getOthersUsers(User user) {
+        List<User> users = new ArrayList<>();
+        usersRepository.findAll().forEach(users::add);
+        users.remove(user);
+        return users;
+    }
+
     public void addUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         usersRepository.save(user);

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head"/>
+<body>
+
+<nav th:replace="fragments/nav"/>
+
+<div class="container" style="text-align: center">
+	<h2 th:text="#{welcome.message}"></h2>
+	<p>
+	  Usuario Autenticado como : 
+	  <span sec:authentication="principal.username"  
+	  	th:inline="text"> </span>
+	</p>
+	<p>
+	  Usuarios de SociApp
+	</p>
+  <div class="table-responsive">
+  <table class="table table-hover" th:fragment="tableUsers" id="tableUsers">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+      </tr>
+    </thead>
+	<tbody>
+	  <tr th:each="user : ${usersList}">
+	    <td th:text="${user.name}"> 1</td>
+	  </tr>
+	</tbody>
+  </table>
+  </div>
+  
+</div>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

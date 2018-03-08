@@ -51,7 +51,7 @@ public class UserController {
         user.setRole(rolesService.getRoles()[0]);
         usersService.addUser(user);
         securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
-        return "redirect:/";
+        return "redirect:home";
     }
 
     @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
@@ -59,7 +59,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String dni = auth.getName();
         User activeUser = usersService.getUserByEmail(dni);
-        //model.addAttribute("markList", activeUser.getMarks());
+        model.addAttribute("usersList", usersService.getOthersUsers(activeUser));
         return "home";
     }
 }
