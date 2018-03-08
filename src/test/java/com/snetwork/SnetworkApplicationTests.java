@@ -1,5 +1,7 @@
 package com.snetwork;
 
+import com.snetwork.pageobjects.PO_HomeView;
+import com.snetwork.pageobjects.PO_RegisterView;
 import com.snetwork.pageobjects.PO_View;
 import com.snetwork.utils.Constants;
 import org.junit.*;
@@ -47,6 +49,13 @@ public class SnetworkApplicationTests {
 
     @Test
     public void PR01() {
+        PO_View.checkElement(driver, Constants.TEXT_TYPE, "Social network");
+    }
+
+    @Test
+    public void PR02() {
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Pedro", "pedro@gmail.com", "123456", "123456");
         PO_View.checkElement(driver, Constants.TEXT_TYPE, "Social network");
     }
 }
