@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head"/>
+<body>
+
+<nav th:replace="fragments/nav"/>
+<div class="container">
+    <h2>Peticiones</h2>
+    <p>Peticiones de amistad recibidas:</p>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="request : ${requestList}">
+                <td th:text="${request.name}">71888888X</td>
+                <td th:text="${request.email}">Nombre del alumno</td>
+                <td><a th:href="${'/requests/list/' + request.id}" class="btn btn-primary" th:text="${request.status}">eliminar</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer class="footer" th:replace="fragments/footer :: footer"/>
+</body>
+</html>

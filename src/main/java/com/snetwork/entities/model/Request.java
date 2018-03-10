@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Friends {
+public class Request {
     @Id
     @GeneratedValue
     private Long id;
@@ -13,14 +13,14 @@ public class Friends {
     private Long idReceiver;
     private boolean accepted;
 
-    public Friends(Long idSender, Long idReceiver, boolean accepted) {
+    public Request(Long idSender, Long idReceiver, boolean accepted) {
         super();
         this.idSender = idSender;
         this.idReceiver = idReceiver;
         this.accepted = accepted;
     }
 
-    public Friends(){
+    public Request(){
 
     }
 

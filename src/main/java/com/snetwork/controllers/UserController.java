@@ -1,9 +1,9 @@
 package com.snetwork.controllers;
 
 import com.snetwork.entities.data.Friend;
-import com.snetwork.entities.model.Friends;
+import com.snetwork.entities.model.Request;
 import com.snetwork.entities.model.User;
-import com.snetwork.services.FriendsService;
+import com.snetwork.services.RequestsService;
 import com.snetwork.services.RolesService;
 import com.snetwork.services.SecurityService;
 import com.snetwork.services.UsersService;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.validation.constraints.Null;
 import java.security.Principal;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class UserController {
     private UsersService usersService;
 
     @Autowired
-    private FriendsService friendsService;
+    private RequestsService requestsService;
 
     @Autowired
     private RolesService rolesService;
@@ -49,9 +48,12 @@ public class UserController {
             Friend friend = getFriendRequest(id);
             buttonAction(friend, principal);
         }catch (NullPointerException e) {
+            // lanzar mensaje al usuario
             System.out.println("Error por id o amigo incorrecto");
         }
-        return "redirect:/home";
+        finally {
+            return "redirect:/home";
+        }
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -96,12 +98,12 @@ public class UserController {
     private void buttonAction(Friend friend, Principal principal) {
         if (friend.getStatus().equals(Friend.SEND_FRIEND_REQUEST)) {
             User user = usersService.getUserByEmail(principal.getName());
-            friendsService.addFriendsQuest(new Friends(user.getId(), friend.getId(), false));
+            requestsService.addFriendsQuest(new Request(user.getId(), friend.getId(), false));
         }
         else if (friend.getStatus().equals(Friend.SENDED_FRIEND_REQUEST)) System.out.println("Petición ya enviada");
         else if (friend.getStatus().equals(Friend.ACCEPT_FRIEND_REQUEST)) {
             User user = usersService.getUserByEmail(principal.getName());
-            friendsService.acceptFriendRequest(friend.getId(), user.getId());
+            requestsService.acceptFriendRequest(friend.getId(), user.getId());
         }
         else if (friend.getStatus().equals(Friend.FRIENDS)) System.out.println("You're already friends!");;
     }
