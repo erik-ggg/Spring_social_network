@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head"/>
 <body>
 
@@ -20,11 +20,17 @@
     <thead>
       <tr>
         <th>Nombre</th>
+	  	<th>Email</th>
+	  	<th class="col-md-1"> </th>
       </tr>
     </thead>
 	<tbody>
 	  <tr th:each="user : ${usersList}">
 	    <td th:text="${user.name}"> 1</td>
+	  	<td th:text="${user.email}"> 1</td>
+	  	<td>
+			<a th:href="${'/home/' + user.id}" class="btn btn-primary" th:text="${user.status}"></a>
+		</td>
 	  </tr>
 	</tbody>
   </table>

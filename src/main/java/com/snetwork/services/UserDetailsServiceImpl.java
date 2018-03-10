@@ -1,6 +1,6 @@
 package com.snetwork.services;
 
-import com.snetwork.entities.User;
+import com.snetwork.entities.model.User;
 import com.snetwork.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

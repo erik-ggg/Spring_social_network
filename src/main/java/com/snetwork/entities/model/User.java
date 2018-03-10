@@ -1,4 +1,4 @@
-package com.snetwork.entities;
+package com.snetwork.entities.model;
 
 import javax.persistence.*;
 import java.util.Objects;

@@ -55,7 +55,9 @@ public class SnetworkApplicationTests {
     @Test
     public void PR02() {
         PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-        PO_RegisterView.fillForm(driver, "Pedro", "pedro@gmail.com", "123456", "123456");
-        PO_View.checkElement(driver, Constants.TEXT_TYPE, "Social network");
+        PO_RegisterView.fillForm(driver, "Pedro", "pedro@gmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Juan", "juan@gmail.com", "123123", "123123");
+        //PO_View.checkElement(driver, Constants.TEXT_TYPE, "Social network");
     }
 }
