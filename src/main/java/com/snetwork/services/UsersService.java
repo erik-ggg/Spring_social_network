@@ -6,10 +6,14 @@ import com.snetwork.entities.model.User;
 import com.snetwork.repositories.RequestsRepository;
 import com.snetwork.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,21 +34,22 @@ public class UsersService {
         return users;
     }
 
-    public List<Friend> getOthersUsers(User user) {
-        List<User> users = new ArrayList<>();
-        usersRepository.findAll().forEach(users::add);
-        users.remove(user);
-        List<Friend> friends = new ArrayList<>();
-        List<Request> friendRquests = getFriendsRequest(user.getId());
+    public Page<User> getAllMinusTarget(Pageable pageable, Long id) {
+        return usersRepository.findAllMinusTarget(pageable, id);
+    }
+
+    public Page<Friend> getOthersUsers(Pageable pageable, User user) {
+        LinkedList<Friend> friends = new LinkedList<>();
+        Page<Request> friendRequests = getFriendsRequest(pageable, user.getId());
         boolean sendedRequest = false;
-        for (User item : users) {
-            for (Request request : friendRquests) {
-                if (request.getIdSender() == user.getId() && request.getIdReceiver() == item.getId()) {
+        for (User item : getAllMinusTarget(pageable, user.getId())) {
+            for (Request request : friendRequests) {
+                if (request.getIdSender() == item.getId() && request.getIdReceiver() == item.getId()) {
                     if (request.isAccepted()) friends.add(new Friend(item.getId(), item.getName(), item.getEmail(), Friend.FRIENDS));
                     else friends.add(new Friend(item.getId(), item.getName(), item.getEmail(), Friend.SENDED_FRIEND_REQUEST));
                     sendedRequest = true;
                 }
-                else if (request.getIdReceiver() == user.getId() && request.getIdSender() == item.getId()) {
+                else if (request.getIdReceiver() == item.getId() && request.getIdSender() == item.getId()) {
                     if (request.isAccepted()) friends.add(new Friend(item.getId(), item.getName(), item.getEmail(), Friend.FRIENDS));
                     else friends.add(new Friend(item.getId(), item.getName(), item.getEmail(), Friend.ACCEPT_FRIEND_REQUEST));
                     sendedRequest = true;
@@ -53,7 +58,7 @@ public class UsersService {
             if (!sendedRequest) friends.add(new Friend(item.getId(), item.getName(), item.getEmail(), Friend.SEND_FRIEND_REQUEST));
             sendedRequest = false;
         }
-        return friends;
+        return new PageImpl<>(friends);
     }
 
     public void addUser(User user) {
@@ -69,8 +74,7 @@ public class UsersService {
         return usersRepository.findByEmail(email);
     }
 
-    private List<Request> getFriendsRequest(Long id) {
-        List<Request> friends = requestsRepository.findByIdUser(id);
-        return friends;
+    private Page<Request> getFriendsRequest(Pageable pageable, Long id) {
+        return requestsRepository.findByUserId(pageable, id);
     }
 }

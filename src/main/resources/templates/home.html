@@ -15,27 +15,27 @@
 	<p>
 	  Usuarios de SociApp
 	</p>
-  <div class="table-responsive">
-  <table class="table table-hover" th:fragment="tableUsers" id="tableUsers">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-	  	<th>Email</th>
-	  	<th class="col-md-1"> </th>
-      </tr>
-    </thead>
-	<tbody>
-	  <tr th:each="user : ${usersList}">
-	    <td th:text="${user.name}"> 1</td>
-	  	<td th:text="${user.email}"> 1</td>
-	  	<td>
-			<a th:href="${'/home/' + user.id}" class="btn btn-primary" th:text="${user.status}"></a>
-		</td>
-	  </tr>
-	</tbody>
-  </table>
-  </div>
-  
+  	<div class="table-responsive">
+  		<table class="table table-hover" th:fragment="tableUsers" id="tableUsers">
+    		<thead>
+      			<tr>
+					<th>Nombre</th>
+					<th>Email</th>
+					<th class="col-md-1"></th>
+      			</tr>
+    		</thead>
+			<tbody>
+		  	<tr th:each="user : ${usersList}">
+				<td th:text="${user.name}"> 1</td>
+				<td th:text="${user.email}"> 1</td>
+				<td>
+					<a th:href="${'/home/' + user.id}" class="btn btn-primary" th:text="${user.status}"></a>
+				</td>
+		  	</tr>
+			</tbody>
+  		</table>
+  	</div>
+	<footer th:replace="fragments/pagination"></footer>
 </div>
 
 <footer th:replace="fragments/footer"/>

@@ -1,11 +1,13 @@
 package com.snetwork.services;
 
 import com.snetwork.entities.model.Request;
+import com.snetwork.entities.model.User;
 import com.snetwork.repositories.RequestsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,7 +32,11 @@ public class RequestsService {
         requestsRepository.acceptFriendRequest(senderId, receiverId);
     }
 
-    public List<Request> getReceivedRequests(Long id) {
-        return requestsRepository.findByReceiverId(id);
+    public Page<Request> getReceivedRequests(Pageable pageable, Long id) {
+        return requestsRepository.findByReceiverId(pageable, id);
+    }
+
+    public Page<Request> getFriends(Pageable pageable, Long id) {
+        return requestsRepository.findFriends(pageable, id);
     }
 }

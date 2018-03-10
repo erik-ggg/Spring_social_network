@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 public class PO_RegisterView extends PO_NavView {
     static public void fillForm(WebDriver driver, String namep, String emailp, String passwordp
         , String passwordconfp) {
-        SeleniumUtils.esperarSegundos(driver, 1);
 //        SeleniumUtils.esperarSegundos(driver, 1);
         WebElement name = driver.findElement(By.name("name"));
         name.click();
@@ -29,7 +28,7 @@ public class PO_RegisterView extends PO_NavView {
         passwordConfirm.click();
         passwordConfirm.clear();
         passwordConfirm.sendKeys(passwordconfp);
-        SeleniumUtils.esperarSegundos(driver, 1);
+//        SeleniumUtils.esperarSegundos(driver, 1);
 
         By button = By.className("btn");
         driver.findElement(button).click();

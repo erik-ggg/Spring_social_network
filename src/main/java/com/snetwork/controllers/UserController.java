@@ -9,6 +9,8 @@ import com.snetwork.services.SecurityService;
 import com.snetwork.services.UsersService;
 import com.snetwork.validators.SignUpFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -40,7 +42,7 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
-    private List<Friend> friends;
+    private Page<Friend> friends;
 
     @RequestMapping(value = "/home/{id}", method = RequestMethod.GET)
     public String sendFriendRequest(@PathVariable Long id, Principal principal) {
@@ -81,12 +83,13 @@ public class UserController {
     }
 
     @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
-    public String home(Model model) {
+    public String home(Model model, Pageable pageable) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String dni = auth.getName();
         User activeUser = usersService.getUserByEmail(dni);
-        friends = usersService.getOthersUsers(activeUser);
-        model.addAttribute("usersList", friends);
+        friends = usersService.getOthersUsers(pageable, activeUser);
+        model.addAttribute("usersList", friends.getContent());
+        model.addAttribute("page", friends);
         return "home";
     }
 
