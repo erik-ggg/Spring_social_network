@@ -12,7 +12,7 @@
          </div>
          <div class="collapse navbar-collapse" id="myNavbar"  >
              <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-		         <li><a href="/">Home</a></li>
+		         <li><a href="/home">Home</a></li>
 				 <li sec:authorize="hasRole('ROLE_STUDENT')"><a href="/requests/list">Ver peticiones recibidas</a></li>
 				 <li sec:authorize="hasRole('ROLE_STUDENT')"><a href="/friends">Ver amigos</a></li>
 		         <li id= "users-menu" class="dropdown" 

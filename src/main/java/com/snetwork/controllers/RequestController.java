@@ -1,6 +1,5 @@
 package com.snetwork.controllers;
 
-import com.snetwork.entities.data.Friend;
 import com.snetwork.entities.model.Request;
 import com.snetwork.entities.model.User;
 import com.snetwork.services.RequestsService;
@@ -31,7 +30,7 @@ public class RequestController {
     @RequestMapping(value = "/requests/list")
     private String listRequestsReceived(Principal principal, Model model, Pageable pageable) {
         User user = usersService.getUserByEmail(principal.getName());
-        Page<Friend> requests = getFriendRequests(pageable, user.getId());
+        Page<User> requests = getFriendRequests(pageable, user.getId());
         model.addAttribute("requestList", requests.getContent());
         model.addAttribute("page", requests);
         return "requests/list";
@@ -39,7 +38,7 @@ public class RequestController {
     @RequestMapping(value = "/friends")
     private String listFriends(Principal principal, Model model, Pageable pageable) {
         User user = usersService.getUserByEmail(principal.getName());
-        Page<Friend> friends = getFriends(pageable, user.getId());
+        Page<User> friends = usersService.getFriends(pageable, user.getId());
         model.addAttribute("friends", friends.getContent());
         model.addAttribute("page", friends);
         return  "friends/friends";
@@ -59,22 +58,24 @@ public class RequestController {
     }
 
 
-    private Page<Friend> getFriends(Pageable pageable, Long id) {
-        Page<Request> requestsAccepted = requestsService.getFriends(pageable, id);
-        LinkedList<Friend> friends = new LinkedList<>();
-        for (Request request : requestsAccepted) {
-            User user = usersService.getUserById(request.getIdSender()).get();
-            friends.add(new Friend(user.getId(), user.getName(), user.getEmail(), Friend.FRIENDS));
-        }
-        return new PageImpl<>(friends);
-    }
+//    private Page<User> getFriends(Pageable pageable, Long id) {
+////        Page<Request> requestsAccepted = requestsService.getFriends(pageable, id);
+//        Page<User> friends = usersService.getFriends(pageable, id);
+//        for (Request request : requestsAccepted) {
+//            User user = usersService.getUserById(requestsService.getFriendIdFromRequest(request, id)).get();
+//            user.setStatus(User.FRIENDS);
+//            friends.add(user);
+//        }
+//        return new PageImpl<>(friends);
+//    }
 
-    private Page<Friend> getFriendRequests(Pageable pageable, Long id) {
+    private Page<User> getFriendRequests(Pageable pageable, Long id) {
         Page<Request> receivedRequests = requestsService.getReceivedRequests(pageable, id);
-        List<Friend> friendRequests = new ArrayList<>();
+        List<User> friendRequests = new ArrayList<>();
         for (Request request : receivedRequests) {
             User user = usersService.getUserById(request.getIdSender()).get();
-            friendRequests.add(new Friend(user.getId(), user.getName(), user.getEmail(), Friend.ACCEPT_FRIEND_REQUEST));
+            user.setStatus(User.ACCEPT_FRIEND_REQUEST);
+            friendRequests.add(user);
         }
         return new PageImpl<>(friendRequests);
     }

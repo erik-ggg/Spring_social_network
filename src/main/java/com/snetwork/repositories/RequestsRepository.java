@@ -16,7 +16,7 @@ public interface RequestsRepository extends CrudRepository<Request, Long>{
     @Query("SELECT f FROM Request f WHERE ID = ?1")
     Request findOne(Long id);
     @Query("SELECT f FROM Request f WHERE (ID_RECEIVER = ?1 OR ID_SENDER = ?1)")
-    Page<Request> findByUserId(Pageable pageable, Long id);
+    List<Request> findByUserId(Long id);
     @Transactional
     @Modifying
     @Query("UPDATE Request SET ACCEPTED = TRUE WHERE (ID_SENDER = ?1 AND ID_RECEIVER = ?2)")

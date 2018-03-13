@@ -39,4 +39,9 @@ public class RequestsService {
     public Page<Request> getFriends(Pageable pageable, Long id) {
         return requestsRepository.findFriends(pageable, id);
     }
+
+    public Long getFriendIdFromRequest(Request request, Long id) {
+        if (request.getIdSender() == id) return request.getIdReceiver();
+        return request.getIdSender();
+    }
 }
