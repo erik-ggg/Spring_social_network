@@ -61,6 +61,11 @@ public class UserController {
         return "login";
     }
 
+    @RequestMapping(value = "/elogin", method = RequestMethod.GET)
+    public String elogin(Model model) {
+        return "elogin";
+    }
+
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model) {
         model.addAttribute("user", new User());
