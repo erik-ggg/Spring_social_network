@@ -50,6 +50,15 @@
 		                </li>
 		            </ul>
 		         </li>
+                 <li sec:authorize="isAuthenticated()">
+                     <form class="navbar-form" action="/home/search">
+                         <div class="form-group">
+                             <input name="searchText" type="text" class="form-control" size="50"
+                                    placeholder="Buscar por nombre o email">
+                         </div>
+                         <button type="submit"><i class="fa fa-search"></i></button>
+                     </form>
+                 </li>
                  <li sec:authorize="!isAuthenticated()">
                      <a href="/signup" th:text="#{signup.message}">
                          <span class="glyphicon glyphicon-user"></span>

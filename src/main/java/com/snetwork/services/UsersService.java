@@ -70,6 +70,39 @@ public class UsersService {
         return users;
     }
 
+    public Page<User> getFriendBySearch(Pageable pageable, String text, Long id) {
+        List<Request> friendRequests = getFriendsRequest(id);
+        Page<User> users = usersRepository.searchUser(pageable, text, id);
+        boolean sendedRequest = false;
+        for (User item : users) {
+            for (Request request : friendRequests) {
+                if (request.getIdSender() == id && request.getIdReceiver() == item.getId()) {
+                    if (request.isAccepted()) {
+                        item.setStatus(User.FRIENDS);
+                        sendedRequest = true;
+                    }
+                    else {
+                        item.setStatus(User.SENDED_FRIEND_REQUEST);
+                        sendedRequest = true;
+                    }
+                }
+                else if (request.getIdReceiver() == id && request.getIdSender() == item.getId()) {
+                    if (request.isAccepted()) {
+                        item.setStatus(User.FRIENDS);
+                        sendedRequest = true;
+                    }
+                    else {
+                        item.setStatus(User.ACCEPT_FRIEND_REQUEST);
+                        sendedRequest = true;
+                    }
+                }
+            }
+            if (!sendedRequest) item.setStatus(User.SEND_FRIEND_REQUEST);
+            sendedRequest = false;
+        }
+        return users;
+    }
+
     public Page<User> getFriends(Pageable pageable, Long id) {
         return usersRepository.findFriends(pageable, id);
     }

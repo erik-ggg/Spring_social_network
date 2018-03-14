@@ -16,10 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -91,6 +88,21 @@ public class UserController {
         String dni = auth.getName();
         User activeUser = usersService.getUserByEmail(dni);
         friends = usersService.getOthersUsers(pageable, activeUser);
+        model.addAttribute("usersList", friends.getContent());
+        model.addAttribute("page", friends);
+        return "home";
+    }
+
+    @RequestMapping(value = {"/home/search"})
+    public String homeSearch(Model model, Principal principal, Pageable pageable, @RequestParam(value = "", required = false) String searchText) {
+        User user = usersService.getUserByEmail(principal.getName());
+        if (searchText != null && !searchText.isEmpty()) {
+            friends = usersService.getFriendBySearch(pageable, searchText, user.getId());
+        }
+        else {
+            friends = usersService.getOthersUsers(pageable, user);
+        }
+
         model.addAttribute("usersList", friends.getContent());
         model.addAttribute("page", friends);
         return "home";
