@@ -1,11 +1,10 @@
 package com.snetwork.entities;
 
 import org.assertj.core.util.DateUtil;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.io.File;
 import java.util.Date;
 
 @Entity
@@ -16,7 +15,9 @@ public class Publication {
     private String title;
     private String content;
     private Date date;
-    private byte[] photo;
+    @Transient
+    private MultipartFile photo;
+    private String photoPath;
     @ManyToOne
     private User user;
 
@@ -31,11 +32,21 @@ public class Publication {
         this.user = user;
     }
 
-    public byte[] getPhoto() {
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        File file = new File(photoPath);
+        String name = file.getName();
+        this.photoPath = "/img/photos/" + name;
+    }
+
+    public MultipartFile getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(MultipartFile photo) {
         this.photo = photo;
     }
 

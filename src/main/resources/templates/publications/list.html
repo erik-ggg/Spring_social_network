@@ -17,7 +17,7 @@
             </thead>
             <tbody>
             <tr th:each="publication : ${publications}">
-                <td><img th:src="${publication.photo}"></td>
+                <td><img th:src="@{${publication.photoPath}}" height="42" width="42"></td>
                 <td th:text="${publication.title}">71888888X</td>
                 <td th:text="${publication.content}">Nombre del alumno</td>
             </tr>

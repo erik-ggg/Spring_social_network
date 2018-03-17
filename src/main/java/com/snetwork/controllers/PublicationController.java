@@ -14,7 +14,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sun.misc.IOUtils;
+import sun.nio.ch.IOUtil;
 
+import javax.imageio.ImageIO;
+import java.awt.font.ImageGraphicAttribute;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 
 @Controller
@@ -31,12 +40,27 @@ public class PublicationController {
     }
 
     @RequestMapping(value = "/publications/add", method = RequestMethod.POST)
-    public String addPublication(@ModelAttribute Publication publication, BindingResult result, Principal principal) {
+    public String addPublication(@ModelAttribute Publication publication, BindingResult result, Principal principal) throws IOException {
         User user = usersService.getUserByEmail(principal.getName());
         publication.setUser(user);
         publication.setDate(DateUtil.now());
+        getPhoto(publication, user);
         publicationService.addPublication(publication);
         return "redirect:list";
+    }
+
+    private void getPhoto(@ModelAttribute Publication publication, User user) throws IOException {
+        String rootPath = System.getProperty("user.home");
+        File dir = new File("C:\\Users\\ERIK\\Documents\\University\\SDI\\Spring_social_network\\src\\main\\resources\\static\\img" + File.separator + "photos");
+        if (!dir.exists())
+            dir.mkdirs();
+        File photo = new File(dir.getAbsolutePath()
+                + File.separator + user.getName() + "_" + publication.getDate().getTime() + ".png");
+        BufferedOutputStream stream = new BufferedOutputStream(
+                new FileOutputStream(photo));
+        stream.write(publication.getPhoto().getBytes());
+        stream.close();
+        publication.setPhotoPath(photo.getAbsolutePath());
     }
 
     @RequestMapping(value = "/publications/list")
