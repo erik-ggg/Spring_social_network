@@ -7,29 +7,29 @@
 <nav th:replace="fragments/nav"/>
 
 <div class="container">
-    <h2>Crear una publicación</h2>
+    <h2 th:text="#{publications.add.title}"></h2>
     <form id="publicationForm" enctype="multipart/form-data" class="form-horizontal" method="post" action="/publications/add" th:object="${publication}">
         <div class="form-group">
-            <label class="control-label col-sm-2" for="title">Título:</label>
+            <label class="control-label col-sm-2" for="title" th:text="#{publications.add.publication.title}"></label>
             <div class="col-sm-10">
-               <input type="text" class="form-control" name="title" placeholder="Titulo..." required="true"/>
+               <input type="text" class="form-control" name="title" required="true"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="content">Contenido:</label>
+            <label class="control-label col-sm-2" for="content" th:text="#{publications.add.content}"></label>
             <div class="col-sm-10">
-                <textarea type="text" form="publicationForm" name="content" placeholder="Hoy es un buen día para escribir algo..."></textarea>
+                <textarea type="text" form="publicationForm" name="content" th:placeholder="#{placeholder.add.publication}"></textarea>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="photo">Foto:</label>
+            <label class="control-label col-sm-2" for="photo" th:text="#{publications.add.photo}"></label>
             <div class="col-sm-4">
-                <input type="file" formenctype="multipart/form-data" class="form-control" accept="image/*" name="photo" >
+                <input type="file" formenctype="multipart/form-data" accept="image/*" name="photo" >
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">Crear</button>
+                <button type="submit" class="btn btn-primary" th:text="#{publications.add.button}"></button>
             </div>
         </div>
     </form>

@@ -12,27 +12,17 @@
          </div>
          <div class="collapse navbar-collapse" id="myNavbar"  >
              <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-		         <li><a href="/home">Home</a></li>
-				 <li sec:authorize="hasRole('ROLE_STUDENT')"><a href="/requests/list">Ver peticiones recibidas</a></li>
-				 <li sec:authorize="hasRole('ROLE_STUDENT')"><a href="/friends">Ver amigos</a></li>
+		         <li><a href="/home" th:text="#{nav.home}"></a></li>
+				 <li sec:authorize="hasRole('ROLE_STUDENT')"><a href="/requests/list" th:text="#{nav.friend.requests}"></a></li>
+				 <li sec:authorize="hasRole('ROLE_STUDENT')"><a href="/friends" th:text="#{nav.seefriends}"></a></li>
                  <li id="users-menu" class="dropdown">
-                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Publicaciones<span class="caret"></span></a>
+                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{nav.publications.title.text}"><span class="caret"></span></a>
                      <ul class="dropdown-menu">
-                         <li><a href="/publications/add">Nueva publicación</a></li>
-                         <li><a href="/publications/list">Tus publicaciones</a></li>
-                         <li><a href="/publications/friends">Publicaciones de tus amigos</a></li>
+                         <li><a href="/publications/add" th:text="#{nav.publications.add.text}"></a></li>
+                         <li><a href="/publications/list" th:text="#{nav.publications.user.text}"></a></li>
+                         <li><a href="/publications/friends" th:text="#{nav.publications.friends.text}"></a></li>
                      </ul>
                  </li>
-		         <!--<li id= "users-menu" class="dropdown" -->
-		         	<!--sec:authorize="hasRole('ROLE_ADMIN')" >-->
-		            <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">-->
-		                <!--Gestión de Usuarios <span class="caret"></span>-->
-		            <!--</a>-->
-		            <!--<ul class="dropdown-menu">-->
-		              <!--<li><a href="/user/add">Agregar usuario</a></li>-->
-		              <!--<li><a href="/user/list">Ver Usuarios</a></li>-->
-		            <!--</ul>-->
-		         <!--</li>-->
              </ul>
              <ul class="nav navbar-nav navbar-right">
 		        <li class="dropdown">
@@ -46,14 +36,14 @@
 		                    <a id="btnEnglish" value="EN"> <img
 		                        th:src="@{/img/if_uk_flag.png}"
 		                        style="border: 0; float: left; margin-right: 15px" /> <span
-		                        th:text="#{language.en}">Inglés</span>
+		                        th:text="#{language.en}"></span>
 		                    </a>
 		                </li>
 		                <li>
 		                    <a id="btnSpanish" value="ES"> <img
 		                        th:src="@{/img/if_spain_flag.png}"
 		                        style="border: 0; float: left; margin-right: 15px" /> <span
-		                        th:text="#{language.es}">Español</span>
+		                        th:text="#{language.es}"></span>
 		                    </a>
 		                </li>
 		            </ul>
@@ -62,7 +52,7 @@
                      <form class="navbar-form" action="/home/search">
                          <div class="form-group">
                              <input name="searchText" type="text" class="form-control" size="50"
-                                    placeholder="Buscar por nombre o email">
+                                    th:placeholder="#{placeholder.search}">
                          </div>
                          <button type="submit"><i class="fa fa-search"></i></button>
                      </form>
@@ -80,9 +70,8 @@
                      </a>
                  </li>
                  <li sec:authorize="isAuthenticated()">
-                     <a href="/logout" >
+                     <a href="/logout" th:text="#{nav.disconnect}">
                          <span class="glyphicon glyphicon-log-out"></span>
-                         Desconectar
                      </a>
                  </li>
              </ul>
