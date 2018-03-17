@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+//@Order(2)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("userDetailsServiceImpl")
     @Autowired
@@ -31,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/css/**","/img/**","/script/**","/","/signup","/login/**").permitAll()
                     .antMatchers("/requests/list").hasAuthority("ROLE_STUDENT")
                     .antMatchers("/friends").hasAuthority("ROLE_STUDENT")
+                    .antMatchers("/publications/**").hasAuthority("ROLE_STUDENT")
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()

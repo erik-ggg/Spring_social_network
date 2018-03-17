@@ -1,7 +1,7 @@
 package com.snetwork.controllers;
 
-import com.snetwork.entities.model.Request;
-import com.snetwork.entities.model.User;
+import com.snetwork.entities.Request;
+import com.snetwork.entities.User;
 import com.snetwork.services.RequestsService;
 import com.snetwork.services.RolesService;
 import com.snetwork.services.SecurityService;
@@ -63,6 +63,11 @@ public class UserController {
         return "elogin";
     }
 
+    @RequestMapping(value = "/login/admin", method = RequestMethod.GET)
+    public String loginAdmin(Model model) {
+        return "admin/login";
+    }
+
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model) {
         model.addAttribute("user", new User());
@@ -116,7 +121,7 @@ public class UserController {
     private void buttonAction(User friend, Principal principal) {
         if (friend.getStatus().equals(User.SEND_FRIEND_REQUEST)) {
             User user = usersService.getUserByEmail(principal.getName());
-            requestsService.addFriendsQuest(new Request(user.getId(), friend.getId(), false));
+            requestsService.addFriendsQuest(new Request(user, friend, false));
         }
         else if (friend.getStatus().equals(User.SENDED_FRIEND_REQUEST)) System.out.println("Petición ya enviada");
         else if (friend.getStatus().equals(User.ACCEPT_FRIEND_REQUEST)) {

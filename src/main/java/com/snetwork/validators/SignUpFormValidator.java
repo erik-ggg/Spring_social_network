@@ -1,7 +1,7 @@
 package com.snetwork.validators;
 
 
-import com.snetwork.entities.model.User;
+import com.snetwork.entities.User;
 import com.snetwork.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

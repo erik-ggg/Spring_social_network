@@ -73,7 +73,7 @@ public class SnetworkApplicationTests {
         PO_RegisterView.fillForm(driver, "Erik93", "erik@gmail.com", "123123", "123123");
         PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
         PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-        PO_RegisterView.fillForm(driver, "Doreaemon", "doreaemon@gmail.com", "123123", "123123");
+        PO_RegisterView.fillForm(driver, "Doraemon", "doraemon@gmail.com", "123123", "123123");
         PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
         PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
         PO_RegisterView.fillForm(driver, "Silvia", "silvia@gmail.com", "123123", "123123");

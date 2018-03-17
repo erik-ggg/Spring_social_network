@@ -1,22 +1,25 @@
-package com.snetwork.entities.model;
+package com.snetwork.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Request {
     @Id
     @GeneratedValue
     private Long id;
-    private Long idSender;
-    private Long idReceiver;
+    @ManyToOne
+    private User sender;
+    @ManyToOne
+    private User receiver;
     private boolean accepted;
 
-    public Request(Long idSender, Long idReceiver, boolean accepted) {
+    public Request(User sender, User receiver, boolean accepted) {
         super();
-        this.idSender = idSender;
-        this.idReceiver = idReceiver;
+        this.sender = sender;
+        this.receiver = receiver;
         this.accepted = accepted;
     }
 
@@ -24,20 +27,20 @@ public class Request {
 
     }
 
-    public Long getIdSender() {
-        return idSender;
+    public User getSender() {
+        return sender;
     }
 
-    public void setIdSender(Long idSender) {
-        this.idSender = idSender;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
-    public Long getIdReceiver() {
-        return idReceiver;
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setIdReceiver(Long idReceiver) {
-        this.idReceiver = idReceiver;
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 
     public boolean isAccepted() {

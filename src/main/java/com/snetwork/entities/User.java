@@ -1,4 +1,4 @@
-package com.snetwork.entities.model;
+package com.snetwork.entities;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,9 +23,13 @@ public class User {
     private String status;
     @Transient
     private String passwordConfirm;
+    @OneToMany(mappedBy = "user")
+    private List<Publication> publications;
 
-//    @OneToMany
-//    private List<Request> requests;
+    @OneToMany
+    private List<Request> senderOf;
+    @OneToMany
+    private List<Request> receiverOf;
 
     public User() {
 
@@ -50,6 +54,14 @@ public class User {
     public int hashCode() {
 
         return Objects.hash(email);
+    }
+
+    public List<Publication> getPublications() {
+        return publications;
+    }
+
+    public void setPublications(List<Publication> publications) {
+        this.publications = publications;
     }
 
     public String getStatus() {

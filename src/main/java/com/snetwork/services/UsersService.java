@@ -1,7 +1,7 @@
 package com.snetwork.services;
 
-import com.snetwork.entities.model.Request;
-import com.snetwork.entities.model.User;
+import com.snetwork.entities.Request;
+import com.snetwork.entities.User;
 import com.snetwork.repositories.RequestsRepository;
 import com.snetwork.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class UsersService {
         boolean sendedRequest = false;
         for (User item : users) {
             for (Request request : friendRequests) {
-                if (request.getIdSender() == user.getId() && request.getIdReceiver() == item.getId()) {
+                if (request.getSender().getId() == user.getId() && request.getReceiver().getId() == item.getId()) {
                     if (request.isAccepted()) {
                         item.setStatus(user.FRIENDS);
                         sendedRequest = true;
@@ -53,7 +53,7 @@ public class UsersService {
                         sendedRequest = true;
                     }
                 }
-                else if (request.getIdReceiver() == user.getId() && request.getIdSender() == item.getId()) {
+                else if (request.getReceiver().getId() == user.getId() && request.getSender().getId() == item.getId()) {
                     if (request.isAccepted()) {
                         item.setStatus(user.FRIENDS);
                         sendedRequest = true;
@@ -76,7 +76,7 @@ public class UsersService {
         boolean sendedRequest = false;
         for (User item : users) {
             for (Request request : friendRequests) {
-                if (request.getIdSender() == id && request.getIdReceiver() == item.getId()) {
+                if (request.getSender().getId() == id && request.getReceiver().getId() == item.getId()) {
                     if (request.isAccepted()) {
                         item.setStatus(User.FRIENDS);
                         sendedRequest = true;
@@ -86,7 +86,7 @@ public class UsersService {
                         sendedRequest = true;
                     }
                 }
-                else if (request.getIdReceiver() == id && request.getIdSender() == item.getId()) {
+                else if (request.getReceiver().getId() == id && request.getSender().getId() == item.getId()) {
                     if (request.isAccepted()) {
                         item.setStatus(User.FRIENDS);
                         sendedRequest = true;

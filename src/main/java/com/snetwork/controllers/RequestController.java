@@ -1,7 +1,7 @@
 package com.snetwork.controllers;
 
-import com.snetwork.entities.model.Request;
-import com.snetwork.entities.model.User;
+import com.snetwork.entities.Request;
+import com.snetwork.entities.User;
 import com.snetwork.services.RequestsService;
 import com.snetwork.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +73,7 @@ public class RequestController {
         Page<Request> receivedRequests = requestsService.getReceivedRequests(pageable, id);
         List<User> friendRequests = new ArrayList<>();
         for (Request request : receivedRequests) {
-            User user = usersService.getUserById(request.getIdSender()).get();
+            User user = usersService.getUserById(request.getSender().getId()).get();
             user.setStatus(User.ACCEPT_FRIEND_REQUEST);
             friendRequests.add(user);
         }

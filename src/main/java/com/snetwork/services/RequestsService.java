@@ -1,7 +1,6 @@
 package com.snetwork.services;
 
-import com.snetwork.entities.model.Request;
-import com.snetwork.entities.model.User;
+import com.snetwork.entities.Request;
 import com.snetwork.repositories.RequestsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,7 +40,7 @@ public class RequestsService {
     }
 
     public Long getFriendIdFromRequest(Request request, Long id) {
-        if (request.getIdSender() == id) return request.getIdReceiver();
-        return request.getIdSender();
+        if (request.getSender().getId() == id) return request.getReceiver().getId();
+        return request.getSender().getId();
     }
 }
