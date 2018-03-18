@@ -42,8 +42,8 @@ public class UserController {
     @RequestMapping(value = "/home/{id}", method = RequestMethod.GET)
     public String sendFriendRequest(@PathVariable Long id, Principal principal) {
         try {
-            User friend = getFriendRequest(id);
-            buttonAction(friend, principal);
+            User friend = usersService.getFriendRequest(id, friends);
+            usersService.buttonAction(friend, principal);
         }catch (NullPointerException e) {
             // lanzar mensaje al usuario
             System.out.println("Error por id o amigo incorrecto");
@@ -111,36 +111,5 @@ public class UserController {
         model.addAttribute("usersList", friends.getContent());
         model.addAttribute("page", friends);
         return "home";
-    }
-
-    /**
-     * This method has the logic of the button
-     * @param friend The friend selected in the table
-     * @param principal The user logged
-     */
-    private void buttonAction(User friend, Principal principal) {
-        if (friend.getStatus().equals(User.SEND_FRIEND_REQUEST)) {
-            User user = usersService.getUserByEmail(principal.getName());
-            requestsService.addFriendsQuest(new Request(user, friend, false));
-        }
-        else if (friend.getStatus().equals(User.SENDED_FRIEND_REQUEST)) System.out.println("Petición ya enviada");
-        else if (friend.getStatus().equals(User.ACCEPT_FRIEND_REQUEST)) {
-            User user = usersService.getUserByEmail(principal.getName());
-            requestsService.acceptFriendRequest(friend.getId(), user.getId());
-        }
-        else if (friend.getStatus().equals(User.FRIENDS)) System.out.println("You're already friends!");;
-    }
-
-
-    /**
-     * Retrieves the friend object from the id
-     * @param id the friend id
-     * @return the friend
-     */
-    private User getFriendRequest(Long id) {
-        for (User friend : friends) {
-            if (friend.getId() == id) return friend;
-        }
-        throw new NullPointerException("Amigo no seleccionado");
     }
 }

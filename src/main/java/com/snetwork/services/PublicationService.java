@@ -7,6 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 @Service
 public class PublicationService {
@@ -23,5 +29,19 @@ public class PublicationService {
 
     public Page<Publication> getFriendsPublications(Pageable pageable, User user) {
         return publicationRepository.findByFriends(pageable, user);
+    }
+
+    public void savePhoto(@ModelAttribute Publication publication, User user) throws IOException {
+//        String rootPath = System.getProperty("user.home");
+        File dir = new File("C:\\Users\\ERIK\\Documents\\University\\SDI\\Spring_social_network\\src\\main\\resources\\static\\img" + File.separator + "photos");
+        if (!dir.exists())
+            dir.mkdirs();
+        File photo = new File(dir.getAbsolutePath()
+                + File.separator + user.getName() + "_" + publication.getDate().getTime() + ".png");
+        BufferedOutputStream stream = new BufferedOutputStream(
+                new FileOutputStream(photo));
+        stream.write(publication.getPhoto().getBytes());
+        stream.close();
+        publication.setPhotoPath(photo.getAbsolutePath());
     }
 }
