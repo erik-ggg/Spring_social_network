@@ -1,8 +1,10 @@
 package com.snetwork.controllers;
 
 import com.snetwork.entities.Publication;
+import com.snetwork.entities.Request;
 import com.snetwork.entities.User;
 import com.snetwork.services.PublicationService;
+import com.snetwork.services.RequestsService;
 import com.snetwork.services.SecurityService;
 import com.snetwork.services.UsersService;
 import org.assertj.core.util.DateUtil;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import java.io.*;
@@ -71,26 +74,29 @@ public class PublicationController {
     public String getUserPublications(Model model, Pageable pageable, Principal principal) {
         User user = usersService.getUserByEmail(principal.getName());
         logger.info("El usuario " + user.getName() + " ha revisado sus publicaciones.");
-        Page<Publication> publications = publicationService.getUserPublications(pageable, user);
+        Page<Publication> publications = publicationService.getUserPublications(pageable, user.getId());
         model.addAttribute("publications", publications.getContent());
         model.addAttribute("page", publications);
         return "publications/list";
     }
 
     /**
-     * Obtiene las publicaciones de los amigos del usuario conectado
+     * Obtiene las publicaciones de un amigo del usuario conectado
      * @param model
      * @param pageable
      * @param principal
      * @return
      */
-    @RequestMapping(value = "/publications/friends")
-    public String getFriendsPublications(Model model, Pageable pageable, Principal principal){
+    @RequestMapping(value = "/publications/friends/{id}")
+    public String getFriendsPublications(@PathVariable Long id, Model model, Pageable pageable, Principal principal){
         User user = usersService.getUserByEmail(principal.getName());
-        logger.info("El usuario " + user.getName() + " ha revisado las publicaciones de sus amigos.");
-        Page<Publication> publications = publicationService.getFriendsPublications(pageable, user);
-        model.addAttribute("publications", publications.getContent());
-        model.addAttribute("page", publications);
-        return "publications/list";
+        if (usersService.checkFriendUser(user, id)) {
+            logger.info("El usuario " + user.getName() + " ha revisado las publicaciones de sus amigos.");
+            Page<Publication> publications = publicationService.getUserPublications(pageable, id);
+            model.addAttribute("publications", publications.getContent());
+            model.addAttribute("page", publications);
+            return "publications/list";
+        }
+        else throw new org.springframework.security.access.AccessDeniedException("403 returned");
     }
 }

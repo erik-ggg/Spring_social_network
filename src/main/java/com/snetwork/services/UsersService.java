@@ -33,6 +33,19 @@ public class UsersService {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
+
+    /**
+     * Comprueba si un usuario es amigo de otro o no
+     * @param user
+     * @param friendId
+     * @return
+     */
+    public boolean checkFriendUser(User user, Long friendId){
+        List<Request> requests = requestsRepository.getAnyRequestByUserOrFriend(user.getId(), friendId);
+        if (requests.size() != 0) return true;
+        return false;
+    }
+
     /**
      * Obtiene la lista de usuarios de la aplicacion
      * @return

@@ -24,4 +24,6 @@ public interface RequestsRepository extends CrudRepository<Request, Long>{
     Page<Request> findByReceiverId(Pageable pageable, Long id);
     @Query("SELECT r FROM Request r WHERE (RECEIVER_ID = ?1 OR SENDER_ID = ?1) AND ACCEPTED = TRUE")
     Page<Request> findFriends(Pageable pageable, Long id);
+    @Query("SELECT r FROM Request r WHERE (RECEIVER_ID = ?1 AND SENDER_ID = ?2 OR RECEIVER_ID = ?2 AND SENDER_ID = ?1)  AND ACCEPTED = TRUE")
+    List<Request> getAnyRequestByUserOrFriend(Long id, Long friendId);
 }

@@ -20,7 +20,6 @@
                      <ul class="dropdown-menu">
                          <li><a href="/publications/add" th:text="#{nav.publications.add.text}"></a></li>
                          <li><a href="/publications/list" th:text="#{nav.publications.user.text}"></a></li>
-                         <li><a href="/publications/friends" th:text="#{nav.publications.friends.text}"></a></li>
                      </ul>
                  </li>
                  <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/list" th:text="#{nav.admin.users}"></a></li>

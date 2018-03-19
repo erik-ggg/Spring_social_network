@@ -23,12 +23,12 @@ public class PublicationService {
         publicationRepository.save(publication);
     }
 
-    public Page<Publication> getUserPublications(Pageable pageable, User user) {
-        return publicationRepository.findByCreator(pageable, user);
+    public Page<Publication> getUserPublications(Pageable pageable, Long id) {
+        return publicationRepository.findByCreator(pageable, id);
     }
 
     public Page<Publication> getFriendsPublications(Pageable pageable, User user) {
-        return publicationRepository.findByFriends(pageable, user);
+        return publicationRepository.findByFriend(pageable, user);
     }
 
     /**

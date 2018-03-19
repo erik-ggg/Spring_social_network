@@ -56,6 +56,22 @@ public class User {
         return Objects.hash(email);
     }
 
+    public List<Request> getSenderOf() {
+        return senderOf;
+    }
+
+    public void setSenderOf(List<Request> senderOf) {
+        this.senderOf = senderOf;
+    }
+
+    public List<Request> getReceiverOf() {
+        return receiverOf;
+    }
+
+    public void setReceiverOf(List<Request> receiverOf) {
+        this.receiverOf = receiverOf;
+    }
+
     public List<Publication> getPublications() {
         return publications;
     }
