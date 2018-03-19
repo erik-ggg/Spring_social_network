@@ -106,7 +106,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String dni = auth.getName();
         User activeUser = usersService.getUserByEmail(dni);
-        if (activeUser.getRole() == rolesService.getRoles()[0]) {
+        if (activeUser.getRole().equals(rolesService.getRoles()[0])) {
             logger.info("El usuario " + activeUser.getName() + " ha logeado correctamente.");
             friends = usersService.getOthersUsers(pageable, activeUser);
             model.addAttribute("usersList", friends.getContent());

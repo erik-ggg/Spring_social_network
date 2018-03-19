@@ -27,7 +27,10 @@
 				<td th:text="${user.name}"> 1</td>
 				<td th:text="${user.email}"> 1</td>
 				<td>
-					<a th:href="${'/home/' + user.id}" class="btn btn-primary" th:text="${user.status}"></a>
+					<a th:if="${user.status == 'SEND FRIEND REQUEST'}" th:href="${'/home/' + user.id}" class="btn btn-primary" th:text="#{home.send.request.text}"></a>
+					<a th:if="${user.status == 'SENDED'}" th:href="${'/home/' + user.id}" class="btn btn-primary" th:text="#{home.sended.request.text}"></a>
+					<a th:if="${user.status == 'ACCEPT FRIEND REQUEST'}" th:href="${'/home/' + user.id}" class="btn btn-primary" th:text="#{home.accept.request.text}"></a>
+					<a th:if="${user.status == 'FRIENDS'}" th:href="${'/home/' + user.id}" class="btn btn-primary" th:text="#{home.friends.request.text}"></a>
 				</td>
 		  	</tr>
 			</tbody>
