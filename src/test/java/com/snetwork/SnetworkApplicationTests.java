@@ -6,6 +6,7 @@ import com.snetwork.utils.SeleniumUtils;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -49,13 +50,13 @@ public class SnetworkApplicationTests {
         driver.quit();
     }
 
-    @Test
-    public void PR01() {
-        PO_View.checkElement(driver, Constants.TEXT_TYPE, "Bienvenidos a la pagina principal");
-    }
+//    @Test
+//    public void PR01() {
+//        PO_View.checkElement(driver, Constants.TEXT_TYPE, "Bienvenidos a la pagina principal");
+//    }
 
     @Test
-    public void PR02() {
+    public void PR01_1() {
         PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
         PO_RegisterView.fillForm(driver, "Pedro", "pedro@gmail.com", "123123", "123123");
         PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
@@ -90,14 +91,14 @@ public class SnetworkApplicationTests {
     }
 
     @Test
-    public void PR02_1() {
+    public void PR01_2() {
         PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
         PO_RegisterView.fillForm(driver, "Pedro", "pedro@gmail.com", "123", "123");
         PO_View.checkElement(driver, "text", "La contrasena debe tener entre 5 y 24 caracteres.");
     }
 
     @Test
-    public void PR03() {
+    public void PR02_1() {
         PO_HomeView.clickOption(driver, Constants.LOGIN_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
         PO_LoginView.fillForm(driver, "pedro@gmail.com", "123123");
         PO_View.checkElement(driver, "text", "Amigos");
@@ -105,11 +106,42 @@ public class SnetworkApplicationTests {
     }
 
     @Test
-    public void PR03_1() {
+    public void PR02_2() {
         PO_HomeView.clickOption(driver, Constants.LOGIN_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
         PO_LoginView.fillForm(driver, "pedro@gmail.com", "123");
         PO_View.checkElement(driver, "text", "Email o contraseña incorrectos");
     }
+
+    @Test
+    public void PR03_1() {
+        PO_HomeView.clickOption(driver, Constants.LOGIN_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_LoginView.fillForm(driver, "pedro@gmail.com", "123123");
+        driver.get("http://localhost:8090/admin/list");
+        PO_View.checkElement(driver, "text", "Forbidden");
+    }
+
+    @Test
+    public void PR03_2() {
+//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+//        PO_LoginView.fillForm(driver, "pedro@gmail.com", "123123");
+        driver.get("http://localhost:8090/home");
+        PO_View.checkElement(driver, "text", "Identifícate");
+    }
+
+    @Test
+    public void PR04_1() {
+        PO_HomeView.clickOption(driver, Constants.LOGIN_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_LoginView.fillForm(driver, "pedro@gmail.com", "123123");
+        PO_HomeView.findUser(driver, "ju");
+        PO_View.checkElement(driver, "text", "juan@gmail.com");
+    }
+
+    @Test
+    public void PR04_2() {
+        driver.get("http://localhost:8090/home/search?searchText=ju");
+        PO_View.checkElement(driver, "text", "Identifícate");
+    }
+
 
     @Test
     public void PR09() {

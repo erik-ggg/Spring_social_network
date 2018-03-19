@@ -1,7 +1,9 @@
 package com.snetwork.pageobjects;
 
 import com.snetwork.utils.SeleniumUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import static com.snetwork.pageobjects.PO_View.getTimeout;
 
@@ -21,6 +23,15 @@ public class PO_HomeView extends PO_NavView {
         PO_HomeView.changeIdiom(driver, textIdiom1);
         PO_HomeView.checkWelcome(driver, locale1);
         SeleniumUtils.esperarSegundos(driver, 1);
+    }
+
+    static public void findUser(WebDriver driver, String searchText) {
+        WebElement element = driver.findElement(By.name("searchText"));
+        element.click();
+        element.clear();
+        element.sendKeys(searchText);
+        By button = By.className("btn");
+        driver.findElement(button).click();
     }
 
 }
