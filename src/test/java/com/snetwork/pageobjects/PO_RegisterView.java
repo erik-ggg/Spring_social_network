@@ -1,6 +1,5 @@
 package com.snetwork.pageobjects;
 
-import com.snetwork.utils.SeleniumUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

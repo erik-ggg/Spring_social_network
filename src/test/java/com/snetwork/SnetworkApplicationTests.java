@@ -54,40 +54,40 @@ public class SnetworkApplicationTests {
         PO_View.checkElement(driver, Constants.TEXT_TYPE, "Bienvenidos a la pagina principal");
     }
 
-//    @Test
-//    public void PR02() {
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Pedro", "pedro@gmail.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Juanito", "juan@gmail.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Melanito", "melanito@gmail.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Jorge", "jorge@gmail.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Saul23", "saul@gmail.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Erik93", "erik@gmail.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Doraemon", "doraemon@gmail.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Silvia", "silvia@gmail.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Maria", "maria@hotmail.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        PO_RegisterView.fillForm(driver, "Antonia", "antonia@yahoo.com", "123123", "123123");
-//        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
-//        //PO_View.checkElement(driver, Constants.TEXT_TYPE, "Social network");
-//    }
+    @Test
+    public void PR02() {
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Pedro", "pedro@gmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Juanito", "juan@gmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Melanito", "melanito@gmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Jorge", "jorge@gmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Saul23", "saul@gmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Erik93", "erik@gmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Doraemon", "doraemon@gmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Silvia", "silvia@gmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Maria", "maria@hotmail.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_HomeView.clickOption(driver, Constants.SIGNUP_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        PO_RegisterView.fillForm(driver, "Antonia", "antonia@yahoo.com", "123123", "123123");
+        PO_HomeView.clickOption(driver, Constants.LOGOUT_STRING, Constants.CLASS_STRING, Constants.BTN_PRIMARY_STRING);
+        //PO_View.checkElement(driver, Constants.TEXT_TYPE, "Social network");
+    }
 
     @Test
     public void PR02_1() {

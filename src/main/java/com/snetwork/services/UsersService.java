@@ -4,16 +4,16 @@ import com.snetwork.entities.Request;
 import com.snetwork.entities.User;
 import com.snetwork.repositories.RequestsRepository;
 import com.snetwork.repositories.UsersRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +30,8 @@ public class UsersService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
@@ -61,26 +63,26 @@ public class UsersService {
             for (Request request : friendRequests) {
                 if (request.getSender().getId() == user.getId() && request.getReceiver().getId() == item.getId()) {
                     if (request.isAccepted()) {
-                        item.setStatus(user.FRIENDS);
+                        item.setStatus(User.FRIENDS);
                         sendedRequest = true;
                     }
                     else {
-                        item.setStatus(user.SENDED_FRIEND_REQUEST);
+                        item.setStatus(User.SENDED_FRIEND_REQUEST);
                         sendedRequest = true;
                     }
                 }
                 else if (request.getReceiver().getId() == user.getId() && request.getSender().getId() == item.getId()) {
                     if (request.isAccepted()) {
-                        item.setStatus(user.FRIENDS);
+                        item.setStatus(User.FRIENDS);
                         sendedRequest = true;
                     }
                     else {
-                        item.setStatus(user.ACCEPT_FRIEND_REQUEST);
+                        item.setStatus(User.ACCEPT_FRIEND_REQUEST);
                         sendedRequest = true;
                     }
                 }
             }
-            if (!sendedRequest) item.setStatus(user.SEND_FRIEND_REQUEST);
+            if (!sendedRequest) item.setStatus(User.SEND_FRIEND_REQUEST);
             sendedRequest = false;
         }
         return users;
@@ -170,7 +172,7 @@ public class UsersService {
             User user = getUserByEmail(principal.getName());
             requestsService.addFriendsQuest(new Request(user, friend, false));
         }
-        else if (friend.getStatus().equals(User.SENDED_FRIEND_REQUEST)) System.out.println("Petición ya enviada");
+        else if (friend.getStatus().equals(User.SENDED_FRIEND_REQUEST)) logger.info("Peticion ya enviada");
         else if (friend.getStatus().equals(User.ACCEPT_FRIEND_REQUEST)) {
             User user = getUserByEmail(principal.getName());
             requestsService.acceptFriendRequest(friend.getId(), user.getId());
@@ -189,5 +191,11 @@ public class UsersService {
             if (friend.getId() == id) return friend;
         }
         throw new NullPointerException("Amigo no seleccionado");
+    }
+
+    public void deleteUser(Long id) {
+        usersRepository.deletePublications(id);
+        usersRepository.deleteRequests(id);
+        usersRepository.deleteById(id);
     }
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head"/>
+<body>
+
+<nav th:replace="fragments/nav"/>
+
+<div class="container" style="text-align: center">
+    </p>
+    <p th:text="#{home.usersapp.message}">
+    </p>
+    <div class="table-responsive">
+        <table class="table table-hover" th:fragment="tableUsers" id="tableUsers">
+            <thead>
+            <tr>
+                <th th:text="#{home.username.text}"></th>
+                <th th:text="#{home.useremail.text}"></th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${usersList}">
+                <td th:text="${user.name}"> 1</td>
+                <td th:text="${user.email}"> 1</td>
+                <td>
+                    <a th:href="${'/admin/delete/' + user.id}" class="btn btn-primary" th:text="#{admin.button.remove}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:replace="fragments/pagination"></footer>
+</div>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

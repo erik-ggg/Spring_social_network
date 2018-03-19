@@ -1,12 +1,12 @@
 package com.snetwork.controllers;
 
-import com.snetwork.entities.Request;
 import com.snetwork.entities.User;
-import com.snetwork.services.RequestsService;
 import com.snetwork.services.RolesService;
 import com.snetwork.services.SecurityService;
 import com.snetwork.services.UsersService;
 import com.snetwork.validators.SignUpFormValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,9 +26,6 @@ public class UserController {
     private UsersService usersService;
 
     @Autowired
-    private RequestsService requestsService;
-
-    @Autowired
     private RolesService rolesService;
 
     @Autowired
@@ -39,14 +36,17 @@ public class UserController {
 
     private Page<User> friends;
 
-    @RequestMapping(value = "/home/{id}", method = RequestMethod.GET)
+    private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
+
+    @SuppressWarnings("finally")
+	@RequestMapping(value = "/home/{id}", method = RequestMethod.GET)
     public String sendFriendRequest(@PathVariable Long id, Principal principal) {
         try {
             User friend = usersService.getFriendRequest(id, friends);
+            logger.info("El usuario " + principal.getName() + " ha enviado una solicitud de amistad");
             usersService.buttonAction(friend, principal);
         }catch (NullPointerException e) {
-            // lanzar mensaje al usuario
-            System.out.println("Error por id o amigo incorrecto");
+            logger.error("Error al enviar la peticion de amistad");
         }
         finally {
             return "redirect:/home";
@@ -61,11 +61,6 @@ public class UserController {
     @RequestMapping(value = "/elogin", method = RequestMethod.GET)
     public String elogin(Model model) {
         return "elogin";
-    }
-
-    @RequestMapping(value = "/login/admin", method = RequestMethod.GET)
-    public String loginAdmin(Model model) {
-        return "admin/login";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -92,15 +87,21 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String dni = auth.getName();
         User activeUser = usersService.getUserByEmail(dni);
-        friends = usersService.getOthersUsers(pageable, activeUser);
-        model.addAttribute("usersList", friends.getContent());
-        model.addAttribute("page", friends);
-        return "home";
+        if (activeUser.getRole() == rolesService.getRoles()[0]) {
+            logger.info("El usuario " + activeUser.getName() + " ha logeado correctamente.");
+            friends = usersService.getOthersUsers(pageable, activeUser);
+            model.addAttribute("usersList", friends.getContent());
+            model.addAttribute("page", friends);
+            return "home";
+        }
+        else
+            return "admin/home";
     }
 
     @RequestMapping(value = {"/home/search"})
     public String homeSearch(Model model, Principal principal, Pageable pageable, @RequestParam(value = "", required = false) String searchText) {
         User user = usersService.getUserByEmail(principal.getName());
+        logger.info("El usuario " + user.getName() + " ha realizado una busqueda de usuarios.");
         if (searchText != null && !searchText.isEmpty()) {
             friends = usersService.getFriendBySearch(pageable, searchText, user.getId());
         }

@@ -15,7 +15,7 @@
 		         <li><a href="/home" th:text="#{nav.home}"></a></li>
 				 <li sec:authorize="hasRole('ROLE_STUDENT')"><a href="/requests/list" th:text="#{nav.friend.requests}"></a></li>
 				 <li sec:authorize="hasRole('ROLE_STUDENT')"><a href="/friends" th:text="#{nav.seefriends}"></a></li>
-                 <li id="users-menu" class="dropdown">
+                 <li id="users-menu" class="dropdown" sec:authorize="hasRole('ROLE_STUDENT')">
                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{nav.publications.title.text}"><span class="caret"></span></a>
                      <ul class="dropdown-menu">
                          <li><a href="/publications/add" th:text="#{nav.publications.add.text}"></a></li>
@@ -23,6 +23,7 @@
                          <li><a href="/publications/friends" th:text="#{nav.publications.friends.text}"></a></li>
                      </ul>
                  </li>
+                 <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/list" th:text="#{nav.admin.users}"></a></li>
              </ul>
              <ul class="nav navbar-nav navbar-right">
 		        <li class="dropdown">
@@ -48,7 +49,7 @@
 		                </li>
 		            </ul>
 		         </li>
-                 <li sec:authorize="isAuthenticated()">
+                 <li sec:authorize="hasRole('ROLE_STUDENT')">
                      <form class="navbar-form" action="/home/search">
                          <div class="form-group">
                              <input name="searchText" type="text" class="form-control" size="50"

@@ -5,15 +5,6 @@
 
 <nav th:replace="fragments/nav"/>
 
-<div class="container" style="text-align: center">
-    <p>
-        Admin :
-        <span sec:authentication="principal.username"
-              th:inline="text"> </span>
-    </p>
-    <footer th:replace="fragments/pagination"></footer>
-</div>
-
 <footer th:replace="fragments/footer"/>
 
 </body>

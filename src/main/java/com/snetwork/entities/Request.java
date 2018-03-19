@@ -1,11 +1,9 @@
 package com.snetwork.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"sender_id", "receiver_id"})})
 public class Request {
     @Id
     @GeneratedValue

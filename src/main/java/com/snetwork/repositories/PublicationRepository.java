@@ -7,8 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
 public interface PublicationRepository extends CrudRepository<Publication, Long> {
     @Query("SELECT p FROM Publication p WHERE p.user = ?1")
     Page<Publication> findByCreator(Pageable pageable, User user);
