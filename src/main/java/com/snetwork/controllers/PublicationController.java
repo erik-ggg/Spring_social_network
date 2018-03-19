@@ -29,25 +29,44 @@ public class PublicationController {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
+    /**
+     * Obtiene la vista para anadir publicaciones
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/publications/add", method = RequestMethod.GET)
     public String addPublication(Model model) {
         model.addAttribute("publication", new Publication());
         return "publications/add";
     }
 
+    /**
+     *
+     * @param publication
+     * @param result
+     * @param principal
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/publications/add", method = RequestMethod.POST)
     public String addPublication(@ModelAttribute Publication publication, BindingResult result, Principal principal) throws IOException {
         User user = usersService.getUserByEmail(principal.getName());
         logger.info("El usuario " + user.getName() + " ha creado una publicacion.");
         publication.setUser(user);
         publication.setDate(DateUtil.now());
-        publicationService.savePhoto(publication, user);
+        publicationService.savePhoto(publication);
         publicationService.addPublication(publication);
         return "redirect:list";
     }
 
 
-
+    /**
+     * Obtiene las publicaciones del usuario conectado
+     * @param model
+     * @param pageable
+     * @param principal
+     * @return
+     */
     @RequestMapping(value = "/publications/list")
     public String getUserPublications(Model model, Pageable pageable, Principal principal) {
         User user = usersService.getUserByEmail(principal.getName());
@@ -58,6 +77,13 @@ public class PublicationController {
         return "publications/list";
     }
 
+    /**
+     * Obtiene las publicaciones de los amigos del usuario conectado
+     * @param model
+     * @param pageable
+     * @param principal
+     * @return
+     */
     @RequestMapping(value = "/publications/friends")
     public String getFriendsPublications(Model model, Pageable pageable, Principal principal){
         User user = usersService.getUserByEmail(principal.getName());

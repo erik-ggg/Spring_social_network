@@ -25,6 +25,11 @@ public class AdminController {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
+    /**
+     * Carga la vista home del admin
+     * @param model
+     * @return
+     */
     @RequestMapping(value = { "/admin/home" }, method = RequestMethod.GET)
     public String home(Model model) {
         @SuppressWarnings("unused")
@@ -32,13 +37,24 @@ public class AdminController {
         return "admin/home";
     }
 
+    /**
+     * Controlador para el login
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
     public String login(Model model) {
         return "admin/login";
     }
 
+    /**
+     * Obtiene los usuarios de la aplicacion y los carga en una vista
+     * @param model
+     * @param pageable
+     * @return
+     */
     @RequestMapping(value = { "/admin/list" }, method = RequestMethod.GET)
-    public String adminHome(Model model, Pageable pageable) {
+    public String list(Model model, Pageable pageable) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String dni = auth.getName();
         User activeUser = usersService.getUserByEmail(dni);
@@ -49,6 +65,12 @@ public class AdminController {
         return "admin/list";
     }
 
+    /**
+     * Obtiene el id de la url y elimina el usuario
+     * @param id el id del usuario a borrar
+     * @param principal
+     * @return la vista de todos los usuarios
+     */
     @SuppressWarnings("finally")
     @RequestMapping(value = "/admin/delete/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable Long id, Principal principal) {

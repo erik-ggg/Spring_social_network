@@ -33,6 +33,10 @@ public class UsersService {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
+    /**
+     * Obtiene la lista de usuarios de la aplicacion
+     * @return
+     */
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
         usersRepository.findAll().forEach(users::add);
@@ -133,6 +137,10 @@ public class UsersService {
         return usersRepository.findFriends(pageable, id);
     }
 
+    /**
+     * Anade del usuario a la base de datos cifrando previamente su contrasena
+     * @param user
+     */
     public void addUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         usersRepository.save(user);
@@ -193,6 +201,10 @@ public class UsersService {
         throw new NullPointerException("Amigo no seleccionado");
     }
 
+    /**
+     * Borra el usuario empezando por sus publicaciones, peticiones y finalmente el mismo
+     * @param id el id del usuario a borrar
+     */
     public void deleteUser(Long id) {
         usersRepository.deletePublications(id);
         usersRepository.deleteRequests(id);

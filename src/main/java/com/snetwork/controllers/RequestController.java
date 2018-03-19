@@ -26,6 +26,13 @@ public class RequestController {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
+    /**
+     * Obtiene la vista de peticiones que el usuario conectado ha recibido
+     * @param principal
+     * @param model
+     * @param pageable
+     * @return
+     */
     @RequestMapping(value = "/requests/list")
     private String listRequestsReceived(Principal principal, Model model, Pageable pageable) {
         User user = usersService.getUserByEmail(principal.getName());
@@ -35,6 +42,14 @@ public class RequestController {
         model.addAttribute("page", requests);
         return "requests/list";
     }
+
+    /**
+     * Obtiene la vista donde se muestran todos los usuarios amigos del usuario conectado
+     * @param principal
+     * @param model
+     * @param pageable
+     * @return
+     */
     @RequestMapping(value = "/friends")
     private String listFriends(Principal principal, Model model, Pageable pageable) {
         User user = usersService.getUserByEmail(principal.getName());
@@ -45,6 +60,12 @@ public class RequestController {
         return  "friends/friends";
     }
 
+    /**
+     * Obtiene la vista para enviar una peticion de amistad
+     * @param id
+     * @param principal
+     * @return
+     */
     @SuppressWarnings("finally")
 	@RequestMapping(value = "/requests/list/{id}", method = RequestMethod.GET)
     public String sendFriendRequest(@PathVariable Long id, Principal principal) {

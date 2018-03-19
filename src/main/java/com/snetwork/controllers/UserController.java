@@ -38,6 +38,12 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
 
+    /**
+     * Envia una peticion de amistad al usuario seleccionado
+     * @param id el id del usuario seleccionado
+     * @param principal
+     * @return
+     */
     @SuppressWarnings("finally")
 	@RequestMapping(value = "/home/{id}", method = RequestMethod.GET)
     public String sendFriendRequest(@PathVariable Long id, Principal principal) {
@@ -69,6 +75,13 @@ public class UserController {
         return "signup";
     }
 
+    /**
+     * Registra al usuario dentro de la aplicacion
+     * @param user
+     * @param result
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signup(@ModelAttribute @Validated User user, BindingResult result, Model model) {
         signUpFormValidator.validate(user, result);
@@ -82,6 +95,12 @@ public class UserController {
         return "redirect:home";
     }
 
+    /**
+     * Obtiene la vista principal de los usuarios cargando todos los usuarios dentro de una pagina
+     * @param model
+     * @param pageable
+     * @return
+     */
     @RequestMapping(value = { "/home" }, method = RequestMethod.GET)
     public String home(Model model, Pageable pageable) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -98,6 +117,14 @@ public class UserController {
             return "admin/home";
     }
 
+    /**
+     * Realiza la misma funcionalidad que home pero filtrando los usuarios por el campo de busqueda
+     * @param model
+     * @param principal
+     * @param pageable
+     * @param searchText el filtro para buscar usuarios
+     * @return
+     */
     @RequestMapping(value = {"/home/search"})
     public String homeSearch(Model model, Principal principal, Pageable pageable, @RequestParam(value = "", required = false) String searchText) {
         User user = usersService.getUserByEmail(principal.getName());

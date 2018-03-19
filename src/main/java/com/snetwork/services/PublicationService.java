@@ -31,13 +31,18 @@ public class PublicationService {
         return publicationRepository.findByFriends(pageable, user);
     }
 
-    public void savePhoto(@ModelAttribute Publication publication, User user) throws IOException {
+    /**
+     * Guarda la foto dentro de una carpeta dentro del proyecto
+     * @param publication la nueva publicacion del usuario conectado
+     * @throws IOException
+     */
+    public void savePhoto(@ModelAttribute Publication publication) throws IOException {
 //        String rootPath = System.getProperty("user.home");
         File dir = new File("C:\\Users\\ERIK\\Documents\\University\\SDI\\Spring_social_network\\src\\main\\resources\\static\\img" + File.separator + "photos");
         if (!dir.exists())
             dir.mkdirs();
         File photo = new File(dir.getAbsolutePath()
-                + File.separator + user.getName() + "_" + publication.getDate().getTime() + ".png");
+                + File.separator + publication.getUser().getName() + "_" + publication.getDate().getTime() + ".png");
         BufferedOutputStream stream = new BufferedOutputStream(
                 new FileOutputStream(photo));
         stream.write(publication.getPhoto().getBytes());
